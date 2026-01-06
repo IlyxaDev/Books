@@ -1,35 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+
+type Book = {
+  id: number;
+  title: string;
+};
+
+// const book: Book = {
+//   id: 1,
+//   title: ''
+// }
+
+// 1) Удаление объектов (написать 2 реализации - remove, filter)
+// 2) Реализовать создание новой книги через input
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [books, setBooks] = useState([
+    {
+      id: 0,
+      title: "Ahhh",
+    },
+    {
+      id: 1,
+      title: "Ahhh2",
+    },
+  ]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <ul>
+        {books.map((book) => {
+          return (
+            <div>
+              {book.id}, {book.title}
+              <button>Delete</button>
+            </div>
+          );
+        })}
+      </ul>
+      <input type="text" />
+      <button>Create</button>
+      <button
+        onClick={() => {
+          const id = getMaxId(books) + 1;
+          const book: Book = {
+            id: id,
+            title: `Title ${id}`,
+          };
+          setBooks([...books, book]);
+        }}
+      >
+        жми
+      </button>
+    </div>
+  );
 }
 
-export default App
+function getMaxId(books: Book[]) {
+  let maxId = 0;
+  for (let index = 0; index < books.length; index++) {
+    if (books[index].id > maxId) {
+      maxId = books[index].id;
+    }
+  }
+  return maxId;
+}
+
+// max = 6
+// if (current > max)
+// max = current
+
+export default App;
