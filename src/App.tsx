@@ -44,7 +44,7 @@ function App() {
     // Обновляем список книг
     setBooks((prevBooks) => [newBook, ...prevBooks]);
 
-    // Сбрасываем форму
+    // Сбрасываем форму 123
     setBook({
       id: uuid(),
       title: "",
